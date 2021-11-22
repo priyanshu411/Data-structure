@@ -2,11 +2,15 @@
 #include <conio.h>
 #include <string.h>
 using namespace std;
+#define MAX 50
 int check(char[]);
+void push(char ch);
+int pop();
+int stack[MAX], top = -1;
 int main()
 {
     system("cls");
-    char exp[20];
+    char exp[MAX];
     cout << "enter experation :";
     cin >> exp;
     if (check(exp))
@@ -18,47 +22,63 @@ int main()
 // check
 int check(char exp[])
 {
-    char stack[20];
-    int top = -1;
 
     for (int i = 0; i < strlen(exp); i++)
     {
         char ch = exp[i];
         if (ch == '[' || ch == '{' || ch == '(')
         {
-            top++;
-            stack[top] = ch;
+            push(ch);
         }
-        else if (ch == ']' || ch == '}' || ch == ')')
+        else if (ch == ']')
         {
-            if (top == -1)
-            {
+            char temp = stack[top];
+            if (pop() == 0 || temp != '[')
                 return (0);
-            }
-            else
-            {
-                char temp = stack[top];
-                top--;
-                if (ch == ']')
-                {
-                    if (temp != '[')
-                        return (0);
-                }
-                else if (ch == '}')
-                {
-                    if (temp != '{')
-                        return (0);
-                }
-                else if (ch == ')')
-                {
-                    if (temp != '(')
-                        return (0);
-                }
-            }
+        }
+        else if (ch == '}')
+        {
+            char temp = stack[top];
+            if (pop() == 0 || temp != '{')
+                return (0);
+        }
+        else if (ch == ')')
+        {
+            char temp = stack[top];
+            if (pop() == 0 || temp != '(')
+                return (0);
         }
     }
-    if(top==-1)
-      return(1);
+    if (top == -1)
+        return (1);
     else
-       return(0);
+        return (0);
+}
+
+// push
+void push(char ele)
+{
+    if (top + 1 != MAX)
+    {
+        top++;
+        stack[top] = ele;
+    }
+    else
+    {
+        cout << "stack is full\n";
+    }
+}
+
+// pop
+int pop()
+{
+    if (top != -1)
+    {
+        top--;
+        return (1);
+    }
+    else
+    {
+        return (0);
+    }
 }
