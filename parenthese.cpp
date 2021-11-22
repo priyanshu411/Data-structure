@@ -6,7 +6,8 @@ using namespace std;
 int check(char[]);
 void push(char ch);
 int pop();
-int stack[MAX], top = -1;
+char stack[MAX];
+int top = -1;
 int main()
 {
     system("cls");
