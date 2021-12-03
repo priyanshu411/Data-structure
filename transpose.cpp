@@ -29,9 +29,9 @@ void set(int arr[][10], int r, int c)
 
 void transpose(int arr[][10], int r, int c)
 {
-    for (int i = 0; i < r; i++)
+    for (int i = 0; i < c; i++)
     {
-        for (int j = 0; j < c; j++)
+        for (int j = 0; j < r; j++)
         {
             cout << arr[j][i] << " ";
         }
